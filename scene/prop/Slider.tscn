@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 1, 1.8 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "move"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CSGBox:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.8, 1, 0 ), Vector3( 1.8, 1, 0 ) ]
+}
+
+[node name="Slider" type="Spatial"]
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.8, 1, 0 )
+width = 0.1
+depth = 1.2
+
+[node name="CSGBox2" type="CSGBox" parent="CSGBox"]
+operation = 2
+width = 0.3
+height = 1.8
+depth = 1.0
+
+[node name="MeshInstance" type="MeshInstance" parent="CSGBox"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "move"
+anims/move = SubResource( 2 )

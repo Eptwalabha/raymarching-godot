@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://shaders/RayMarcher.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/v_meta = 0.324
+shader_param/v_mix = 0.534
+shader_param/light = Vector3( 2, 5, 2 )
+shader_param/speed = null
+shader_param/time_offset = 0.0
+shader_param/local = true

@@ -1,0 +1,13 @@
+*.blend
+*.blend1
+.*.swp
+.~lock*
+.import/
+export.cfg
+export_presets.cfg
+exports/
+*.mp3
+
+*.translation
+*.png~
+

@@ -1,0 +1,140 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scene/test/Test3D.gd" type="Script" id=1]
+[ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://materials/RMFristRoom.tres" type="Material" id=3]
+[ext_resource path="res://materials/RMCorridor.tres" type="Material" id=4]
+[ext_resource path="res://scene/prop/ShowRoom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/prop/Slider.tscn" type="PackedScene" id=6]
+[ext_resource path="res://materials/RMWorldSpace.tres" type="Material" id=7]
+[ext_resource path="res://materials/RMLocalSpace.tres" type="Material" id=8]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 2, 2 )
+
+[node name="Demo" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="KinematicBody" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.215192, 0.917717, 4.04518 )
+
+[node name="Level" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.917716, 0 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="Level"]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="Level/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.59952, 0, -1.81335 )
+width = 19.0319
+height = 4.95942
+depth = 19.9936
+
+[node name="CSGCombiner" type="CSGCombiner" parent="Level/CSGCombiner"]
+operation = 2
+
+[node name="room1" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 4 )
+width = 5.0
+height = 2.5
+depth = 5.0
+
+[node name="room4" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 4 )
+width = 5.0
+height = 2.5
+depth = 5.0
+
+[node name="room2" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
+width = 5.0
+height = 2.5
+depth = 5.0
+
+[node name="room3" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.5, -3.5 )
+width = 6.0
+height = 2.5
+depth = 6.0
+
+[node name="ShowRoom" parent="Level/CSGCombiner/CSGCombiner/room3" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.3, 0 )
+
+[node name="corridor12" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
+width = 1.5
+depth = 4.5
+
+[node name="corridor13-1" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -8 )
+width = 1.5
+depth = 4.5
+
+[node name="corridor13-5" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.25, -8 )
+width = 1.5
+depth = 4.5
+
+[node name="corridor13-6" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.25, 1.75 )
+width = 1.5
+depth = 6.0
+
+[node name="corridor13-2" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.5, 0.25, -9.5 )
+width = 1.5
+depth = 3.0
+
+[node name="corridor13-3" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, 0.25, -9.5 )
+width = 1.5
+depth = 6.0
+material = ExtResource( 4 )
+
+[node name="corridor13-4" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -10.5, 0.25, -9.5 )
+width = 1.5
+depth = 3.0
+
+[node name="corridor13-7" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.75744, 0.25, 4 )
+width = 1.5
+depth = 3.0
+
+[node name="CSGBox2" type="CSGBox" parent="Level/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
+width = 2.5
+height = 2.5
+depth = 0.3
+
+[node name="CSGBox3" type="CSGBox" parent="Level/CSGCombiner/CSGBox2"]
+operation = 2
+width = 2.1
+height = 2.1
+depth = 0.4
+
+[node name="MeshInstance2" type="MeshInstance" parent="Level/CSGCombiner/CSGBox2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Level/CSGCombiner/CSGBox2"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.05 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="Slider" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -0.5, 1.6 )
+
+[node name="MeshInstance" parent="Level/Slider/CSGBox" index="1"]
+material/0 = ExtResource( 8 )
+
+[node name="Slider2" parent="Level" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6, -0.5, 6.4 )
+
+[node name="MeshInstance" parent="Level/Slider2/CSGBox" index="1"]
+material/0 = ExtResource( 7 )
+
+[editable path="Level/Slider"]
+
+[editable path="Level/Slider2"]
