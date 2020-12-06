@@ -5,8 +5,8 @@ render_mode unshaded;
 uniform vec3 light = vec3(0., 5., 0.);
 
 const float SURFACE_DISTANCE = 0.001;
-const float MAX_DISTANCE = 300.;
-const int MAX_STEP = 300;
+const float MAX_DISTANCE = 150.;
+const int MAX_STEP = 200;
 
 varying vec3 v;
 varying vec3 rO;
@@ -62,10 +62,7 @@ float getLight(vec3 p, vec3 lp, float time) {
 
 vec3 background(vec3 p) {
 	vec3 bg = vec3(0.);
-//	float y = p.y * .5 + .5;
-//	bg += (1. - y) * vec3(1.);
 	return vec3(1. - pow(abs(p.y), .01));
-//	return vec3(sin(p.y) * 0.5 + 0.5);
 }
 
 void vertex() {
@@ -82,9 +79,7 @@ void fragment() {
 	
 	if (d <= MAX_DISTANCE) {
 		float shade = clamp(0., 1., getLight(rO + dr * d, vec3(0., 50., 0.), TIME));
-		c = mix(vec3(shade), c, smoothstep(30., 200., d));
-//		c = vec3(diff);
-//		c = mix(c, background(dr), smoothstep(40., 100., d));
+		c = mix(vec3(shade), c, smoothstep(30., 120., d));
 	}
 	ALBEDO.xyz = c;
 }

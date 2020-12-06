@@ -4,7 +4,7 @@ render_mode unshaded;
 
 const float SURFACE_DISTANCE = 0.0001;
 const float MAX_DISTANCE = 20.;
-const int MAX_STEP = 300;
+const int MAX_STEP = 150;
 
 varying vec3 v;
 varying vec3 rO;
@@ -55,9 +55,11 @@ float sdKey(vec3 p, float time) {
 	float key = sdBox(q - vec3(.15, 0., -.45), vec3(.09, .035, .1));
 	key = max(-sdBox(q - vec3(0.3, 0., -.45), vec3(.1, .1, .06)), key);
 	key = max(-sdBox(q - vec3(0.25, 0., -.425), vec3(.1, .1, .03)), key);
+	key = max(-sdBox(q - vec3(0.15, 0.03, -.425), vec3(.03, .02, .2)), key);
+	key = max(-sdBox(q - vec3(0.23, -0.035, -.425), vec3(.03, .02, .2)), key);
 	d = smin(d, key, .03);
 //	float d = sdRing()
-	return d;
+	return d - .005;
 }
 
 float GetDist(vec3 p, float time) {

@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.388235, 0.388235, 0.388235, 1 )
+
+[sub_resource type="CylinderMesh" id=2]
+material = SubResource( 1 )
+top_radius = 0.1
+bottom_radius = 0.2
+height = 0.3
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 0.5, 0.5, 0.5 )
+
+[sub_resource type="CylinderShape" id=5]
+radius = 0.5
+height = 1.5
+
+[sub_resource type="Animation" id=4]
+resource_name = "move"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pedestal/Cube:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 35, 1.47399e-06, 45 ), Vector3( 35, 360, 45 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pedestal/Cube:translation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.75, 0 ), Vector3( 0, 1, 0 ) ]
+}
+
+[node name="FloatingCube" type="Spatial"]
+
+[node name="Pedestal" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Cube" type="MeshInstance" parent="Pedestal"]
+transform = Transform( 0.29305, 0.508629, 0.809579, 0.579228, 0.579228, -0.573576, -0.760668, 0.637017, -0.124869, 0, 0.890194, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0 )
+shape = SubResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "move"
+anims/move = SubResource( 4 )
