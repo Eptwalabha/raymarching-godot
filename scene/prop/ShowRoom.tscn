@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://materials/RMFristRoom.tres" type="Material" id=1]
 [ext_resource path="res://materials/RMMetaballs.tres" type="Material" id=2]
 [ext_resource path="res://materials/RMKey.tres" type="Material" id=3]
 [ext_resource path="res://materials/RMWorldSpace.tres" type="Material" id=4]
+[ext_resource path="res://materials/Frame.tres" type="Material" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.8, 1, 0.8 )
@@ -18,12 +19,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0 )
 width = 1.6
 height = 2.1
 depth = 1.6
+material = ExtResource( 5 )
 
 [node name="CSGBox2" type="CSGBox" parent="CSGBox"]
 operation = 2
 width = 1.2
 height = 1.8
 depth = 2.5
+material = ExtResource( 5 )
 
 [node name="CSGBox3" type="CSGBox" parent="CSGBox"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
@@ -31,6 +34,7 @@ operation = 2
 width = 1.2
 height = 1.8
 depth = 2.5
+material = ExtResource( 5 )
 
 [node name="StaticBody" type="StaticBody" parent="CSGBox"]
 

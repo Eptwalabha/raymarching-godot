@@ -22,7 +22,7 @@ float sdBox(vec3 p, vec3 box) {
 }
 
 float GetDist(vec3 p, float time) {
-	return sdInfiniSphere(p - vec3(0., time, 6.), vec3(6.), .4);
+	return sdInfiniSphere(p - vec3(0., time, 3.), vec3(6.), .4);
 }
 
 vec3 GetNormal(vec3 p) {
