@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://shaders/RMMandelbulb.shader" type="Shader" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.169329, 0.230032, 0.265176, 0.325879, 0.389776 )
+colors = PoolColorArray( 0.757812, 0, 0, 1, 0.291855, 0.824336, 0.274678, 1, 0, 0.0949402, 0.714844, 1, 0.828125, 0.640503, 0, 1, 0.636719, 0.253693, 0.630734, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 512
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/colors = SubResource( 2 )
