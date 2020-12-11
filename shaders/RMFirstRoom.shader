@@ -20,13 +20,21 @@ float sdBox(vec3 p, vec3 box) {
 
 float GetDist(vec3 p, float time) {
 	
-	float sphere = sdSphere(p - vec3(0., 0, -.8), .4);
-	float box = sdBox(p - vec3(0., 0, -.8), vec3(.3));
+	float c = cos(time);
+	float s = sin(time);
+	vec3 q = p - vec3(0., 0, -1.);
 	
-	return mix(sphere, box, sin(time * 2.));
+	q.xz *= mat2(vec2(c, s), vec2(-s, c));
+	
+	float sphere = sdSphere(q, .4);
+	float box = sdBox(q, vec3(.3));
+	float d = mix(sphere, box, sin(time * 2.));
+//	d = min(q.y + 2., d);
+
+	return d;
 }
 
-vec3 GetNormal(vec3 p) {
+vec3 getNormal(vec3 p) {
 	vec2 e = vec2(1.e-3, 0.);
 	return normalize(GetDist(p, 0.) - vec3(
 		GetDist(p - e.xyy, 0.),
@@ -50,16 +58,26 @@ float RayMarcher(vec3 ro, vec3 rd, float time) {
 	return dO;
 }
 
-float getLight(vec3 p, vec3 lp, float time) {
-	vec3 d = lp - p;
-	vec3 l = normalize(d);
-	vec3 n = GetNormal(p);
-	float diff = clamp(dot(n, l), 0., 1.);
-	float shadow = RayMarcher(p + l * 0.008, l, time);
-	if (shadow < length(d)) {
-		return diff * .3;
+
+float getDiffuse(vec3 normal, vec3 light) {
+	return clamp(dot(normal, light), 0., 1.);
+}
+
+float getSpecular(vec3 normal, vec3 light, float power) {
+	vec3 h = normalize(normal + light);
+	return pow(max(dot(h, normal), 0.0), power);
+}
+
+float getShadow(vec3 p, vec3 light, float time) {
+	vec3 delta = light - p;
+	vec3 lightDirection = normalize(delta);
+	vec3 normal = getNormal(p);
+	float shadow = RayMarcher(p + lightDirection * 0.08, lightDirection, time);
+	float diffuse = getDiffuse(normal, lightDirection);
+	if (shadow < length(delta)) {
+		diffuse *= .4;
 	}
-	return diff;
+	return diffuse + .02;
 }
 
 void vertex() {
@@ -78,13 +96,15 @@ void fragment() {
 		discard;
     } else {
 		vec3 p = rO + dr * d;
-		vec3 light1 = vec3(3., 5., 0.);
-		vec3 light2 = vec3(-2., 10., 0.);
-		float amb = clamp(0.5 + 0.5 * p.y, 0., 1.);
-		float dif1 = getLight(p, light1, TIME);
-		float dif2 = getLight(p, light2, TIME);
-		c += vec3(0.8) * dif1 * amb + .02;
-		c += dif2;
+		vec3 light = vec3(3., 5., 2.);
+		vec3 lightDirection = normalize(light - p);
+		vec3 normal = getNormal(p);
+		float spec = getSpecular(normal, dr, 200.);
+		float dif = getShadow(p, light, TIME);
+		vec3 materialColor = vec3(.9, 0.35, .18);
+		float amb = .02;
+		c = materialColor * (dif + spec) + amb;
+		
 	}
 	ALBEDO.xyz = c;
 }

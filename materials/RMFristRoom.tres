@@ -2,6 +2,5 @@
 
 [ext_resource path="res://shaders/RMFirstRoom.shader" type="Shader" id=1]
 
-
 [resource]
 shader = ExtResource( 1 )
