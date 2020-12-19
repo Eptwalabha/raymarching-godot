@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scene/test/Test3D.gd" type="Script" id=1]
 [ext_resource path="res://scene/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://materials/RMLocalSpace.tres" type="Material" id=8]
 [ext_resource path="res://scene/prop/FloatingCube.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scene/prop/Mandelbulb.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scene/prop/ColumnTorus.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "move"
@@ -119,6 +120,9 @@ material/0 = ExtResource( 7 )
 
 [node name="AnimationPlayer" parent="Level/CSGCombiner/CSGCombiner/room4/FloatingCubeWorld" index="2"]
 anims/move = SubResource( 1 )
+
+[node name="ColumnTorus" parent="Level/CSGCombiner/CSGCombiner/room4" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, -1.25, 1.3 )
 
 [node name="corridor12" type="CSGBox" parent="Level/CSGCombiner/CSGCombiner"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.25, 3 )
