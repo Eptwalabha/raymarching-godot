@@ -9,10 +9,10 @@ top_radius = 0.1
 bottom_radius = 0.1
 height = 2.5
 
-[sub_resource type="CylinderMesh" id=4]
+[sub_resource type="CylinderMesh" id=2]
 top_radius = 0.7
 bottom_radius = 0.7
-height = 1.0
+height = 1.4
 
 [sub_resource type="CylinderShape" id=3]
 radius = 0.7
@@ -26,7 +26,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="RMTorus" type="MeshInstance" parent="Column"]
-mesh = SubResource( 4 )
+mesh = SubResource( 2 )
 material/0 = ExtResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="."]

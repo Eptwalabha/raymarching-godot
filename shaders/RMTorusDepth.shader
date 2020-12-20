@@ -8,6 +8,7 @@ const int MAX_STEP = 150;
 
 varying vec3 v;
 varying vec3 rO;
+varying mat4 CAMERA;
 
 float r21(vec2 p) {
 	return fract(pow(sin(dot(p, vec2(27918.294, 1892090.0))), .124));
@@ -67,26 +68,29 @@ float getLight(vec3 p, vec3 lp, float time) {
 	return diff;
 }
 
-float linearDepth(sampler2D text, vec2 screen_uv, mat4 inv_proj) {
-	float depth = texture(text, screen_uv).x;
+vec4 depthInfos(sampler2D depth_texture, vec2 screen_uv, mat4 inv_proj) {
+	float depth = texture(depth_texture, screen_uv).x;
 	vec3 ndc = vec3(screen_uv, depth) * 2.0 - 1.0;
 	vec4 view = inv_proj * vec4(ndc, 1.0);
+	vec4 world = CAMERA * view;
 	view.xyz /= view.w;
-	return -view.z;
+	return vec4(world.xyz / world.w, -view.z);
 }
 
 void vertex() {
-	rO = (inverse(WORLD_MATRIX) * CAMERA_MATRIX[3]).xyz;
+	CAMERA = inverse(WORLD_MATRIX) * CAMERA_MATRIX;
+	rO = CAMERA[3].xyz;
 	v = (inverse(WORLD_MATRIX) * vec4(VERTEX, 1.)).xyz;
 }
 
 void fragment() {
-	float linear_depth = linearDepth(DEPTH_TEXTURE, SCREEN_UV, INV_PROJECTION_MATRIX);
+	vec4 depth = depthInfos(DEPTH_TEXTURE, SCREEN_UV, INV_PROJECTION_MATRIX);
 	vec3 dr = normalize(v - rO);
 	float d = RayMarcher(rO, dr, TIME);
 	vec3 c = vec3(0.);
 	
-	if (d > MAX_DISTANCE || d > linear_depth) {
+	float wd = length(depth.xyz - rO);
+	if (d > MAX_DISTANCE || d > wd) {
 		discard;
 	} else {
 		vec3 p = rO + dr * d;
@@ -95,5 +99,5 @@ void fragment() {
 		float dif1 = getLight(p, light1, TIME);
 		c += vec3(0.8) * dif1 * amb + .02;
 	}
-	ALBEDO.xyz = c;
+	ALBEDO = c;
 }
